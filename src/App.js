@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { useTable, useGlobalFilter } from 'react-table';
 
+const apiUrl = process.env.REACT_APP_BACKEND_URL;
 const Styles = styled.div`
   padding: 1rem;
 
@@ -100,7 +101,7 @@ function App() {
 
 
   const fetchUsers = (searchQuery) => {
-    let url = 'http://127.0.0.1:8000/api/users';
+    let url =  `${apiUrl}/api/users`;
     if (searchQuery !== null) {
       // Update API endpoint to include search query only if it's not null
       url += `?search=${searchQuery}`;
@@ -128,20 +129,9 @@ function App() {
   }
 
   const fetchDailyRecord = () => {
-    fetch('http://127.0.0.1:8000/api/daily-record')
+    fetch( `${apiUrl}/api/daily-record`)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data.data)
-      // const parsedData = data.map((record) => ({
-      //   number: data.indexOf(record) + 1,
-      //   uuid: record.uuid,
-      //   date: record.date,
-      //   male_count: record.male_count,
-      //   female_count: record.female_count,
-      //   male_avg_age: record.male_avg_age,
-      //   female_avg_age: record.female_avg_age,
-      // }));
-      // console.log(parsedData)
        setRecord([data.data]);
     })
     .catch((err) => {
@@ -159,11 +149,6 @@ function App() {
             Header: 'Date',
             accessor: 'date',
           },
-          {
-            Header: 'Total User',
-            accessor: 'total_user',
-          },
-
         ],
       },
       {
