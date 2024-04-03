@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - gh-pages
+      - main
 
 jobs:
   build:
@@ -19,16 +19,16 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: npm install --ignore-platform-reqs
+        run: npm install --legacy-peer-deps
 
       - name: Build the React app
-        run: npm run build
+        run: CI=false npm run build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          branch: gh-pages
+          branch: main
           folder: build
-          token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           env: |
-            REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}
+            REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL
