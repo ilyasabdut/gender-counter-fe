@@ -115,21 +115,13 @@ function App() {
       const parsedData = data.data.map((user) => ({
         number: data.data.indexOf(user) + 1,
         uuid: user.uuid,
-        firstName: JSON.parse(user.name).first,
-        lastName: JSON.parse(user.name).last,
+        name: user.name,
         gender: user.gender,
         age: user.age,
-        location: `
-        ${JSON.parse(user.location).street.name}, 
-        ${JSON.parse(user.location).street.number},
-        ${JSON.parse(user.location).city}, 
-        ${JSON.parse(user.location).state}, 
-        ${JSON.parse(user.location).country}, 
-        ${JSON.parse(user.location).postcode}` 
+        location: user.location
       }))
-      
        setUsers(parsedData)
-       setTotalUsers(parsedData.length); // Update total users
+       setTotalUsers(data.meta.total); // Update total users
 
     })
     .catch((err) => {
@@ -208,12 +200,8 @@ function App() {
             accessor: 'number',
           },
           {
-            Header: 'First Name',
-            accessor: 'firstName',
-          },
-          {
-            Header: 'Last Name',
-            accessor: 'lastName',
+            Header: 'Name',
+            accessor: 'name',
           },
         ],
       },
