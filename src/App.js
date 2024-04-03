@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { useTable, useGlobalFilter } from 'react-table';
+import moment from 'moment';
+import 'moment-timezone';
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
 const Styles = styled.div`
@@ -117,9 +119,16 @@ function App() {
         lastName: JSON.parse(user.name).last,
         gender: user.gender,
         age: user.age,
-        location: user.location,
-      }));
-       setUsers(parsedData);
+        location: `
+        ${JSON.parse(user.location).street.name}, 
+        ${JSON.parse(user.location).street.number},
+        ${JSON.parse(user.location).city}, 
+        ${JSON.parse(user.location).state}, 
+        ${JSON.parse(user.location).country}, 
+        ${JSON.parse(user.location).postcode}` 
+      }))
+      
+       setUsers(parsedData)
        setTotalUsers(parsedData.length); // Update total users
 
     })
@@ -132,7 +141,15 @@ function App() {
     fetch( `${apiUrl}/api/daily-record`)
     .then((response) => response.json())
     .then((data) => {
-       setRecord([data.data]);
+      const parsedData = {
+        uuid: data.data.uuid,
+        date: moment().tz(data.data.date,'Asia/Jakarta').format('llll'),
+        male_count: data.data.male_count,
+        female_count: data.data.female_count,
+        male_avg_age: data.data.male_avg_age,
+        female_avg_age: data.data.female_avg_age
+      };
+       setRecord([parsedData]);
     })
     .catch((err) => {
        console.log(err.message);
