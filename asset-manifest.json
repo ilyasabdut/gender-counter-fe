@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/peasy-gender-counter-fe/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/peasy-gender-counter-fe/static/js/main.47e24681.chunk.js",
-    "main.js.map": "/peasy-gender-counter-fe/static/js/main.47e24681.chunk.js.map",
+    "main.js": "/peasy-gender-counter-fe/static/js/main.f7a95e17.chunk.js",
+    "main.js.map": "/peasy-gender-counter-fe/static/js/main.f7a95e17.chunk.js.map",
     "runtime~main.js": "/peasy-gender-counter-fe/static/js/runtime~main.5c30c5b3.js",
     "runtime~main.js.map": "/peasy-gender-counter-fe/static/js/runtime~main.5c30c5b3.js.map",
-    "static/js/2.6882c01c.chunk.js": "/peasy-gender-counter-fe/static/js/2.6882c01c.chunk.js",
-    "static/js/2.6882c01c.chunk.js.map": "/peasy-gender-counter-fe/static/js/2.6882c01c.chunk.js.map",
+    "static/js/2.ac8b9997.chunk.js": "/peasy-gender-counter-fe/static/js/2.ac8b9997.chunk.js",
+    "static/js/2.ac8b9997.chunk.js.map": "/peasy-gender-counter-fe/static/js/2.ac8b9997.chunk.js.map",
     "index.html": "/peasy-gender-counter-fe/index.html",
-    "precache-manifest.c19ffbbe9c714e45ed76ed33e5212a26.js": "/peasy-gender-counter-fe/precache-manifest.c19ffbbe9c714e45ed76ed33e5212a26.js",
+    "precache-manifest.4eccc61613a1f8a9f91a0a219b2c6ee0.js": "/peasy-gender-counter-fe/precache-manifest.4eccc61613a1f8a9f91a0a219b2c6ee0.js",
     "service-worker.js": "/peasy-gender-counter-fe/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/peasy-gender-counter-fe/static/css/main.5ecd60fb.chunk.css.map"
   }
