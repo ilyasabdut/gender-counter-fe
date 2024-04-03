@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set CI environment variable
+        run: export CI=false
+        
       - name: Checkout repository
         uses: actions/checkout@v2
 
