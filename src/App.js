@@ -135,7 +135,7 @@ function App() {
     .then((data) => {
       const parsedData = {
         uuid: data.data.uuid,
-        date: moment().tz(data.data.date,'Asia/Jakarta').format('llll'),
+        date: moment(data.data.date).tz('Asia/Jakarta').format('llll'),
         male_count: data.data.male_count,
         female_count: data.data.female_count,
         male_avg_age: data.data.male_avg_age,
