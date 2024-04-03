@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "307f252b9b5f75af12fc9da328c220dc",
+    "revision": "3be9fd40522fd6c01e481cc02f677551",
     "url": "/peasy-gender-counter-fe/index.html"
   },
   {
-    "revision": "8aadd112008550c99570",
+    "revision": "4511408f1a0c704a6c29",
     "url": "/peasy-gender-counter-fe/static/css/main.5ecd60fb.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/peasy-gender-counter-fe/static/js/2.aaf6ac81.chunk.js"
   },
   {
-    "revision": "8aadd112008550c99570",
-    "url": "/peasy-gender-counter-fe/static/js/main.4ca8f200.chunk.js"
+    "revision": "4511408f1a0c704a6c29",
+    "url": "/peasy-gender-counter-fe/static/js/main.bb6061cd.chunk.js"
   },
   {
     "revision": "889a8ffd8c54d8a96842",
