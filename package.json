@@ -4,6 +4,8 @@
     "start": "rescripts start",
     "build": "rescripts build",
     "test": "rescripts test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "rescripts eject"
   },
   "dependencies": {
@@ -19,7 +21,8 @@
     "@rescripts/rescript-use-babel-config": "^0.0.8",
     "@rescripts/rescript-use-eslint-config": "^0.0.9",
     "babel-eslint": "10.0.1",
-    "eslint-config-prettier": "^9.1.0"
+    "eslint-config-prettier": "^9.1.0",
+    "gh-pages": "^6.1.1"
   },
   "browserslist": {
     "production": [
