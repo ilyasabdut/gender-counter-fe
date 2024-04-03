@@ -22,7 +22,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build the React app
-        run: REACT_APP_BACKEND_URL=https://peasy-gender-counter.fly.de CI=false npm run build
+        run:  CI=false npm run build:prod
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4

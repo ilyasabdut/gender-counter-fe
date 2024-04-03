@@ -3,6 +3,7 @@
   "scripts": {
     "start": "rescripts start",
     "build": "rescripts build",
+    "build:prod": "REACT_APP_ENV=production react-scripts build",
     "test": "rescripts test",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
