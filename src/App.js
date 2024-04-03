@@ -242,7 +242,7 @@ function App() {
   const handleDelete = (uuid) => {
     // Handle delete action
     console.log(uuid)
-      fetch(`http://127.0.0.1:8000/api/users/${uuid}`, {
+      fetch(`${apiUrl}/api/users/${uuid}`, {
         method: 'DELETE',
       })
       .then((response) => {
