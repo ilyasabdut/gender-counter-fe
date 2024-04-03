@@ -193,9 +193,6 @@ function App() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Name',
-        columns: [
-          {
             Header: 'No',
             accessor: 'number',
           },
@@ -203,11 +200,6 @@ function App() {
             Header: 'Name',
             accessor: 'name',
           },
-        ],
-      },
-      {
-        Header: 'Info',
-        columns: [
           {
             Header: 'Age',
             accessor: 'age',
@@ -229,8 +221,6 @@ function App() {
   
           },
 
-        ],
-      },
     ],
     []
   )
