@@ -31,4 +31,4 @@ jobs:
           folder: build
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           env: |
-            REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL
+            REACT_APP_BACKEND_URL=https://peasy-gender-counter.fly.de
