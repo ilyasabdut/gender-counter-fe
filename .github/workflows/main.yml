@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set CI environment variable
-        run: export CI=false
-        
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -25,7 +22,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build the React app
-        run: npm run build
+        run: CI=false npm run build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
