@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
-import { useTable } from 'react-table'
-
-import makeData from './makeData'
+import { useTable, useGlobalFilter } from 'react-table';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -33,60 +31,86 @@ const Styles = styled.div`
   }
 `
 
-function Table({ columns, data }) {
-  // Use the state and functions returned from useTable to build your UI
+function Table({ columns, data ,isSearch}) {
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({
-    columns,
-    data,
-  })
-
+    state,
+    setGlobalFilter,
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    useGlobalFilter // Use global filter hook
+  );
   // Render the UI for your table
   return (
-    <table {...getTableProps()}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
-          prepareRow(row)
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-              })}
+    <>
+      {isSearch && ( // Render search input if isSearch is true
+        <input
+          type="text"
+          placeholder="Search..."
+          value={state.globalFilter || ''}
+          onChange={(e) => setGlobalFilter(e.target.value)}
+        />
+      )}
+      {/* Table */}
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              ))}
             </tr>
-          )
-        })}
-      </tbody>
-    </table>
-  )
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row, i) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </>
+  );
 }
 
 function App() {
-  const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [record, setRecord] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(null);
+  const [totalUsers, setTotalUsers] = useState(0);
+
+
   useEffect(() => {
-    fetchUsers()
-  }, []);
+    fetchUsers(searchQuery); // Fetch users with the initial search query
+    fetchDailyRecord()
+  }, [searchQuery]);
 
 
-  const fetchUsers = () => {
-    fetch('http://127.0.0.1:8000/api/users')
+  const fetchUsers = (searchQuery) => {
+    let url = 'http://127.0.0.1:8000/api/users';
+    if (searchQuery !== null) {
+      // Update API endpoint to include search query only if it's not null
+      url += `?search=${searchQuery}`;
+    }
+    fetch(url)
     .then((response) => response.json())
     .then((data) => {
 
       const parsedData = data.data.map((user) => ({
+        number: data.data.indexOf(user) + 1,
         uuid: user.uuid,
         firstName: JSON.parse(user.name).first,
         lastName: JSON.parse(user.name).last,
@@ -94,19 +118,93 @@ function App() {
         age: user.age,
         location: user.location,
       }));
-      console.log(parsedData)
-       setPosts(parsedData);
+       setUsers(parsedData);
+       setTotalUsers(parsedData.length); // Update total users
+
     })
     .catch((err) => {
        console.log(err.message);
     });
-
   }
+
+  const fetchDailyRecord = () => {
+    fetch('http://127.0.0.1:8000/api/daily-record')
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.data)
+      // const parsedData = data.map((record) => ({
+      //   number: data.indexOf(record) + 1,
+      //   uuid: record.uuid,
+      //   date: record.date,
+      //   male_count: record.male_count,
+      //   female_count: record.female_count,
+      //   male_avg_age: record.male_avg_age,
+      //   female_avg_age: record.female_avg_age,
+      // }));
+      // console.log(parsedData)
+       setRecord([data.data]);
+    })
+    .catch((err) => {
+       console.log(err.message);
+    });
+  }
+
+
+  const dailyRecords = React.useMemo(
+    () => [
+      {
+        Header: 'Daily Record',
+        columns: [
+          {
+            Header: 'Date',
+            accessor: 'date',
+          },
+          {
+            Header: 'Total User',
+            accessor: 'total_user',
+          },
+
+        ],
+      },
+      {
+        Header: 'Male',
+        columns: [
+          {
+            Header: 'Count',
+            accessor: 'male_count',
+          },
+          {
+            Header: 'Avg Age',
+            accessor: 'male_avg_age',
+          },
+        ],
+      },
+      {
+        Header: 'Female',
+        columns: [
+          {
+            Header: 'Count',
+            accessor: 'female_count',
+          },
+          {
+            Header: 'Avg Age',
+            accessor: 'female_avg_age',
+          },
+        ],
+      },
+
+    ],
+    []
+  )
   const columns = React.useMemo(
     () => [
       {
         Header: 'Name',
         columns: [
+          {
+            Header: 'No',
+            accessor: 'number',
+          },
           {
             Header: 'First Name',
             accessor: 'firstName',
@@ -147,6 +245,15 @@ function App() {
     []
   )
 
+  function TotalUsers({ totalUsers }) {
+    return (
+      <div>
+        <p>Total Users: {totalUsers}</p>
+      </div>
+    );
+  }
+  
+  
   const handleDelete = (uuid) => {
     // Handle delete action
     console.log(uuid)
@@ -159,7 +266,8 @@ function App() {
         }
         // If the response is successful, perform any necessary actions
         console.log('User deleted successfully');
-        fetchUsers()
+        fetchUsers(null)
+        fetchDailyRecord()
 
         // You may want to update the UI or state here
       })
@@ -171,7 +279,9 @@ function App() {
   
   return (
     <Styles>
-      <Table columns={columns} data={posts} />
+      <Table columns={dailyRecords} data={record} />
+      <TotalUsers totalUsers={totalUsers} />
+      <Table columns={columns} data={users} isSearch={true}/>
     </Styles>
   )
 }
