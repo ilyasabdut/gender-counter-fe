@@ -29,6 +29,6 @@ jobs:
         with:
           branch: main
           folder: build
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           env: |
             REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}
