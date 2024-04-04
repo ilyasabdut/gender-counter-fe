@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { useTable, useGlobalFilter } from 'react-table';
-import moment from 'moment';
-import 'moment-timezone';
+import moment from 'moment-timezone';
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
 const Styles = styled.div`
@@ -135,7 +134,7 @@ function App() {
     .then((data) => {
       const parsedData = {
         uuid: data.data.uuid,
-        date: moment(data.data.date).tz('Asia/Jakarta').format('llll'),
+        date: moment.utc(data.data.date).local().format('llll'),
         male_count: data.data.male_count,
         female_count: data.data.female_count,
         male_avg_age: data.data.male_avg_age,
