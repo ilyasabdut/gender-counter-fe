@@ -149,15 +149,16 @@ function App() {
     })
     .then((response) => response.json())
     .then((data) => {
-      const parsedData = {
-        uuid: data.data.uuid,
-        date: moment.utc(data.data.date).local().format('llll'),
-        male_count: data.data.male_count,
-        female_count: data.data.female_count,
-        male_avg_age: data.data.male_avg_age,
-        female_avg_age: data.data.female_avg_age
-      };
-       setRecord([parsedData]);
+      const parsedData = data.data.map((record) => ({
+        uuid: record.uuid,
+        date: moment(record.date).format('llll'),
+        male_count: record.male_count,
+        female_count: record.female_count,
+        male_avg_age: record.male_avg_age,
+        female_avg_age: record.female_avg_age,
+        total_count: record.male_count + record.female_count
+      }))
+       setRecord(parsedData);
     })
     .catch((err) => {
        console.log(err.message);
@@ -202,6 +203,16 @@ function App() {
           },
         ],
       },
+      {
+        Header: 'Total Count',
+        columns: [
+          {
+            Header: 'Count',
+            accessor: 'total_count',
+          },
+        ],
+      },
+
 
     ],
     []
