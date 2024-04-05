@@ -4,6 +4,7 @@ import { useTable, useGlobalFilter } from 'react-table';
 import moment from 'moment-timezone';
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
+const apiToken = process.env.REACT_APP_BACKEND_TOKEN;
 const Styles = styled.div`
   padding: 1rem;
 
@@ -107,7 +108,15 @@ function App() {
       // Update API endpoint to include search query only if it's not null
       url += `?search=${searchQuery}`;
     }
-    fetch(url)
+    fetch(url,{
+      method: 'GET', // or any other HTTP method
+      headers: {
+        // Add your request headers here
+        'Content-Type': 'application/json',
+        'Authorization': apiToken, // Example of accessing Authorization header
+        // Add more headers if needed
+      },
+    })
     .then((response) => response.json())
     .then((data) => {
 
@@ -129,7 +138,15 @@ function App() {
   }
 
   const fetchDailyRecord = () => {
-    fetch( `${apiUrl}/api/daily-record`)
+    fetch( `${apiUrl}/api/daily-record`,{
+        method: 'GET', // or any other HTTP method
+        headers: {
+          // Add your request headers here
+          'Content-Type': 'application/json',
+          'Authorization': apiToken, // Example of accessing Authorization header
+          // Add more headers if needed
+        },
+    })
     .then((response) => response.json())
     .then((data) => {
       const parsedData = {
@@ -238,6 +255,12 @@ function App() {
     console.log(uuid)
       fetch(`${apiUrl}/api/users/${uuid}`, {
         method: 'DELETE',
+        headers: {
+          // Add your request headers here
+          'Content-Type': 'application/json',
+          'Authorization': apiToken, // Example of accessing Authorization header
+          // Add more headers if needed
+        },
       })
       .then((response) => {
         if (!response.ok) {

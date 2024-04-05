@@ -30,3 +30,6 @@ jobs:
           branch: gh-pages
           folder: build
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          REACT_APP_BACKEND_TOKEN: ${{ secrets.REACT_APP_BACKEND_TOKEN }}
+
