@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/peasy-gender-counter-fe/precache-manifest.f28f98c2bbeeeef13ad3e18ed780abab.js"
+  "/peasy-gender-counter-fe/precache-manifest.f9e16163ce9f7461f017a76918eeff0d.js"
 );
 
 self.addEventListener('message', (event) => {
